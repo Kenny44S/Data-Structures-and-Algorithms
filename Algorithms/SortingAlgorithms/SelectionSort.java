@@ -29,17 +29,10 @@ public class SelectionSort {
         {
             if( ( l = unsortedArray[z] ) < lowest )
             {
-                lowest = l;
-                tmp = z;
+                unsortedArray[z] = unsortedArray[indexToSort];
+                unsortedArray[indexToSort] = l;
             }
         }
-
-        if(tmp > 0)
-        {
-            unsortedArray[tmp] = unsortedArray[indexToSort];
-            unsortedArray[indexToSort] = lowest;
-        }
-
 
         return sort(indexToSort+1, unsortedArray);
     }
