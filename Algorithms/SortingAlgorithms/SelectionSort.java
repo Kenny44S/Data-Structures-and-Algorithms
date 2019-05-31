@@ -1,84 +1,68 @@
 public class SelectionSort {
 
-    private int[] arrayToSort;
-    private int sizeOfArray;
-    private int nextIndexToSort = 0;
+    int[] unsortedArray;
 
-    /*
-     * @params integer sizeOfInteger : size of array to sor
-     * @params integer maxRange      : Random numbers from 0 - maxRange will be inserted into array.
-     *
-     */
-     
-    SelectionSort()
+    public SelectionSort(int unsortedArray[])
     {
-        
-    }
-    
-    SelectionSort(int sizeOfArray, int maxRange)
-    {
-        arrayToSort = new int[sizeOfArray];
-        this.sizeOfArray = sizeOfArray;
-        fillArray(maxRange);
+        this.unsortedArray = unsortedArray;
     }
 
-    public void fillArray(int limit)
+
+    public int[] sortArray()
     {
-        int i;
-        for(i=0; i < sizeOfArray; i++)
-        {
-            arrayToSort[i] = (int) (Math.random() * limit);
+        return sort(0, unsortedArray);
+    }
+
+    public int[] sort(int indexToSort, int[] unsortedArray)
+    {
+        if(unsortedArray.length == 1)
+            return unsortedArray;
+
+        if( indexToSort == unsortedArray.length ) {
+            return unsortedArray;
         }
-        System.out.println("Array created & filled with random numbers successfully.");
-        System.out.println("Original array: ");
-        displayArray();
-    }
+//        {30,10,60,20,15,25,60,90,4};
+        int lowest = unsortedArray[indexToSort]; // 30
+        int l, tmp = 0;
 
-    public void displayArray()
-    {
-        int i;
-        for(i=0; i < sizeOfArray; i++)
+        for (int z = (indexToSort + 1); z < unsortedArray.length; z++ )
         {
-            System.out.print(" | " + arrayToSort[i]);
-        }
-        System.out.println("\n-------------------------------------------------------------------------");
-    }
-
-    public void startSort()
-    {
-        System.out.println("Starting Sort..");
-        sort(nextIndexToSort);
-    }
-
-    private void sort(int nextIndexToSort)
-    {
-        this.nextIndexToSort = nextIndexToSort;
-        int minimum = arrayToSort[this.nextIndexToSort];
-        int temp;
-
-        if( (this.nextIndexToSort+1) == sizeOfArray) {
-            System.out.println("Your array has been sorted successfully.");
-        }else
-        {
-            for(int i = this.nextIndexToSort + 1; i < sizeOfArray; i++ )
+            if( ( l = unsortedArray[z] ) < lowest )
             {
-                if(arrayToSort[i] < minimum)
-                {
-                    temp = minimum;
-                    minimum = arrayToSort[i];
-                    arrayToSort[i] = temp;
-                }
+                lowest = l;
+                tmp = z;
             }
-            arrayToSort[this.nextIndexToSort] = minimum;
-            nextIndexToSort++;
-            displayArray();
-            sort(nextIndexToSort);
         }
+
+        if(tmp > 0)
+        {
+            unsortedArray[tmp] = unsortedArray[indexToSort];
+            unsortedArray[indexToSort] = lowest;
+        }
+
+
+        return sort(indexToSort+1, unsortedArray);
     }
-    
+
+
+    public static void printArray(int[] array)
+    {
+        for(int z : array)
+            System.out.print(z + " ");
+
+        System.out.println();
+    }
+
     public static void main(String[] args)
     {
-        SelectionSort st = new SelectionSort(10, 100);
-        st.startSort();
+        int[] unsortedArray = {30,10,60,20,15,25,60,90,4,35,70,90};
+
+        SelectionSort ssort = new SelectionSort(unsortedArray);
+
+        printArray(unsortedArray);
+
+        int[] sortedArray = ssort.sortArray();
+
+        printArray(sortedArray);
     }
 }
