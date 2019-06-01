@@ -30,7 +30,7 @@ public class SelectionSort {
             if( (newNum = unsortedArray[z])  < lowest )
             {
                 unsortedArray[z] = lowest;
-                unsortedArray[indexToSort] = newNum;
+                unsortedArray[indexToSort] = lowest = newNum;
             }
         }
 
