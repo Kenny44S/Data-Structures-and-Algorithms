@@ -23,14 +23,14 @@ public class SelectionSort {
         }
 //        {30,10,60,20,15,25,60,90,4};
         int lowest = unsortedArray[indexToSort]; // 30
-        int l, tmp = 0;
+        int newNum;
 
         for (int z = (indexToSort + 1); z < unsortedArray.length; z++ )
         {
-            if( ( l = unsortedArray[z] ) < lowest )
+            if( (newNum = unsortedArray[z])  < lowest )
             {
-                unsortedArray[z] = unsortedArray[indexToSort];
-                unsortedArray[indexToSort] = l;
+                unsortedArray[z] = lowest;
+                unsortedArray[indexToSort] = newNum;
             }
         }
 
